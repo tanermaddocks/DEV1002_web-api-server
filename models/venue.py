@@ -21,4 +21,4 @@ class VenueSchema(ma.Schema):
         fields = ("id", "name", "phone", "tables")
 
 venue_schema = VenueSchema()
-venue_schema = VenueSchema(many=True)
+venues_schema = VenueSchema(many=True)
