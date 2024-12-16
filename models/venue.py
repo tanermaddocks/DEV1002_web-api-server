@@ -13,12 +13,12 @@ class Venue(db.Model):
     # Relationships
     tables = db.relationship("Table", back_populates="restaurant", cascade="all, delete")
 
-class StudentSchema(ma.Schema):
+class VenueSchema(ma.Schema):
 
     tables = fields.Nested("TablesSchema", exclude=["venue"])
 
     class Meta:
         fields = ("id", "name", "phone", "tables")
 
-student_schema = StudentSchema()
-student_schema = StudentSchema(many=True)
+venue_schema = VenueSchema()
+venue_schema = VenueSchema(many=True)
