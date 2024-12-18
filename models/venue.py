@@ -13,7 +13,7 @@ class Venue(db.Model):
     phone = db.Column(db.String, nullable=False, unique=True)
 
     # Relationships
-    tables = db.relationship("Table", back_populates="restaurant", cascade="all, delete")
+    tables = db.relationship("Table", back_populates="venue", cascade="all, delete")
 
 # Schema
 class VenueSchema(ma.Schema):
