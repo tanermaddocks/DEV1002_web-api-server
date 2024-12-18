@@ -2,7 +2,9 @@ from marshmallow import fields
 
 from init import db, ma
 
+# Model
 class Venue(db.Model):
+    # Table name
     __tablename__ = "venues"
     
     # Columns
@@ -13,12 +15,14 @@ class Venue(db.Model):
     # Relationships
     tables = db.relationship("Table", back_populates="restaurant", cascade="all, delete")
 
+# Schema
 class VenueSchema(ma.Schema):
-
+    # Modifiers
     tables = fields.Nested("TablesSchema", exclude=["venue"])
-
+    # Fields
     class Meta:
         fields = ("id", "name", "phone", "tables")
 
+# Schema variables
 venue_schema = VenueSchema()
 venues_schema = VenueSchema(many=True)
