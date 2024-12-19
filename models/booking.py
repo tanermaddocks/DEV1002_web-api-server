@@ -20,8 +20,8 @@ class Booking(db.Model):
 # Schema
 class BookingSchema(ma.Schema):
     # Modifiers
-    venue = fields.Nested("VenueSchema", only=["name"])
-    bookings_tables = fields.Nested("BookingTableSchema", exclude=["booking"])
+    guest = fields.Nested("GuestSchema", only=["name"])
+    bookings_tables = fields.List(fields.Nested("BookingTableSchema", only=["booking_id"]))
     # Fields
     class Meta:
         fields = ("id", "guest_id", "num_guests", "guest" ,"bookings_tables")

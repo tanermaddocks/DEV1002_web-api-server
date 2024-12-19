@@ -29,7 +29,7 @@ def create_app():
     app.register_blueprint(db_commands)
     app.register_blueprint(venue_bp)
     app.register_blueprint(guest_bp)
-    # app.register_blueprint(table_bp)
+    app.register_blueprint(table_bp)
     # app.register_blueprint(booking_bp)
     # app.register_blueprint(booking_table_bp)
 

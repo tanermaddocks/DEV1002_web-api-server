@@ -19,7 +19,7 @@ class Guest(db.Model):
 # Schema
 class GuestSchema(ma.Schema):
     # Modifiers
-    bookings = fields.Nested("TablesSchema", exclude=["guest"])
+    bookings = fields.Nested("BookingSchema", exclude=["guest"])
     # Fields
     class Meta:
         fields = ("id", "name", "phone", "email", "bookings")

@@ -17,14 +17,14 @@ class BookingTable(db.Model):
     table = db.relationship("Table", back_populates="bookings_tables")
 
 # Schema
-class TableSchema(ma.Schema):
+class BookingTableSchema(ma.Schema):
     # Modifiers
     booking = fields.Nested("BookingSchema", exclude=["bookings_tables"])
-    table = fields.Nested("BookingSchema", exclude=["bookings_tables"])
+    table = fields.Nested("TableSchema", exclude=["bookings_tables"])
     # Fields
     class Meta:
-        fields = ("id", "booking_id", "table_id, booking, table")
+        fields = ("id", "booking_id", "table_id", "booking", "table")
 
 # Schema variables
-table_schema = TableSchema()
-tables_schema = TableSchema(many=True)
+booking_table_schema = BookingTableSchema()
+bookings_tables_schema = BookingTableSchema(many=True)
