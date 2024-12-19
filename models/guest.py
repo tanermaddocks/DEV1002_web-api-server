@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-from init import db, ma
+from local_import.init import db, ma
 
 # Model
 class Guest(db.Model):

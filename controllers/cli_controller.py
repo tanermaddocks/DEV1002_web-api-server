@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-from init import db
-from models.models_import import *
+from local_import.init import db
+from local_import.models import *
 
 db_commands = Blueprint("db", __name__)
 

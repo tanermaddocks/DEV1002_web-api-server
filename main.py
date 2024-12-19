@@ -3,8 +3,8 @@ import os
 from flask import Flask
 from marshmallow import ValidationError
 
-from init import db, ma
-from controllers.controllers_import import *
+from local_import.init import db, ma
+from local_import.controllers import *
 
 def create_app():
     app = Flask(__name__)

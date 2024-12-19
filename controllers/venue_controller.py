@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from sqlalchemy.exc import IntegrityError
 from psycopg2 import errorcodes
 
-from init import db
+from local_import.init import db
 from models.venue import Venue, venues_schema, venue_schema
 
 venue_bp = Blueprint("venues", __name__, url_prefix="/venues")
