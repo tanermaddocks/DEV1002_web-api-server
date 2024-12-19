@@ -10,7 +10,7 @@ class Booking(db.Model):
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     num_guests = db.Column(db.Integer, nullable=False)
-    guestId = db.Column(db.Integer, db.ForeignKey("guests.id"), nullable=False)
+    guest_id = db.Column(db.Integer, db.ForeignKey("guests.id"), nullable=False)
     time = db.Column(db.Date, nullable=False)
 
     # Relationships
