@@ -14,7 +14,7 @@ class Guest(db.Model):
     email = db.Column(db.String, unique=True)
 
     # Relationships
-    bookings = db.relationship("Booking", back_populates="guest", cascade="all, delete")
+    # bookings = db.relationship("Booking", back_populates="guest", cascade="all, delete")
 
 # Schema
 class GuestSchema(ma.Schema):
@@ -22,7 +22,7 @@ class GuestSchema(ma.Schema):
     bookings = fields.Nested("TablesSchema", exclude=["guest"])
     # Fields
     class Meta:
-        fields = ("id", "name", "phone", "email", "bookings")
+        fields = ("id", "name", "phone", "email")#, "bookings")
 
 # Schema variables
 guest_schema = GuestSchema()

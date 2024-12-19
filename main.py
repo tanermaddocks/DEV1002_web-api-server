@@ -26,7 +26,9 @@ def create_app():
     # def not_found(err):
     #     return {"message": str(err)}, 404
     
+    app.register_blueprint(db_commands)
     app.register_blueprint(venue_bp)
     app.register_blueprint(guest_bp)
+    # app.register_blueprint(table_bp)
 
     return app
