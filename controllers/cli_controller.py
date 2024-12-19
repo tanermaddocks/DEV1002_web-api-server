@@ -28,7 +28,6 @@ def seed_tables():
             phone="0798 765 432"
         )
     ]
-
     db.session.add_all(venues)
 
     guests = [
@@ -43,8 +42,65 @@ def seed_tables():
             email="sample2@guest.com"
         )
     ]
-
     db.session.add_all(guests)
+
+    db.session.commit()
+
+    bookings = [
+        Booking(
+            guest_id=1,
+            num_guests=2,
+            time="2024-08-27"
+        ),
+        Booking(
+            guest_id=2,
+            num_guests=4,
+            time="2024-08-27"
+        )
+    ]
+    db.session.add_all(bookings)
+
+    tables = [
+        Table(
+            table_number=1,
+            max_guests=4,
+            venue_id=1
+        ),
+        Table(
+            table_number=2,
+            max_guests=2,
+            venue_id=1
+        ),
+        Table(
+            table_number=1,
+            max_guests=2,
+            venue_id=2
+        ),
+        Table(
+            table_number=2,
+            max_guests=2,
+            venue_id=2
+        )
+    ]
+    db.session.add_all(tables)
+
+    db.session.commit()
+
+    bookings_tables = [
+        BookingTable(
+            booking_id=1,
+            table_id=2
+        ),
+        BookingTable(
+            booking_id=2,
+            table_id=3
+        ),
+        BookingTable(
+            booking_id=2,
+            table_id=4
+        )
+    ]
+    db.session.add_all(bookings_tables)
 
     db.session.commit()
 
