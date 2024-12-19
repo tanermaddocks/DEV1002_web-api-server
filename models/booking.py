@@ -9,8 +9,9 @@ class Booking(db.Model):
     
     # Columns
     id = db.Column(db.Integer, primary_key=True)
-    max_guests = db.Column(db.String, nullable=False)
-    venue_id = db.Column(db.Integer, db.ForeignKey("venues.id"), nullable=False, unique=True)
+    num_guests = db.Column(db.Integer, nullable=False)
+    guestId = db.Column(db.Integer, db.ForeignKey("guest.id"), nullable=False)
+    time = db.Column(db.Date, nullable=False)
 
     # Relationships
     guest = db.relationship("Guest", back_populates="bookings")
@@ -22,8 +23,8 @@ class BookingSchema(ma.Schema):
     venue = fields.Nested("VenueSchema", only=["name"])
     # Fields
     class Meta:
-        fields = ("id", "max_guests", "venue_id", "guest" ,"booking_table")
+        fields = ("id", "guest_id", "num_guests", "guest" ,"booking_table")
 
-# Schema variables
+# Schema variables 
 booking_schema = BookingSchema()
 bookings_schema = BookingSchema(many=True)
