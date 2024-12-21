@@ -3,9 +3,9 @@ from marshmallow import fields
 from local_import.init import db, ma
 
 # Model
-class BookingTable(db.Model):
+class Allocation(db.Model):
     # Table name
-    __tablename__ = "bookings_tables"
+    __tablename__ = "allocations"
     
     # Columns
     id = db.Column(db.Integer, primary_key=True)
@@ -13,18 +13,18 @@ class BookingTable(db.Model):
     table_id = db.Column(db.Integer, db.ForeignKey("tables.id"), nullable=False)
 
     # Relationships
-    booking = db.relationship("Booking", back_populates="bookings_tables")
-    table = db.relationship("Table", back_populates="bookings_tables")
+    booking = db.relationship("Booking", back_populates="allocations")
+    table = db.relationship("Table", back_populates="ballocations")
 
 # Schema
-class BookingTableSchema(ma.Schema):
+class AllocationSchema(ma.Schema):
     # Modifiers
-    booking = fields.Nested("BookingSchema", exclude=["bookings_tables"])
-    table = fields.Nested("TableSchema", exclude=["bookings_tables"])
+    booking = fields.Nested("BookingSchema", exclude=["allocations"])
+    table = fields.Nested("TableSchema", exclude=["allocations"])
     # Fields
     class Meta:
         fields = ("id", "booking_id", "table_id", "booking", "table")
 
 # Schema variables
-booking_table_schema = BookingTableSchema()
-bookings_tables_schema = BookingTableSchema(many=True)
+allocation_schema = AllocationSchema()
+allocations_schema = AllocationSchema(many=True)

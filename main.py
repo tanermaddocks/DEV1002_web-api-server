@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-from marshmallow import ValidationError
 
 from local_import.init import db, ma
 from local_import.controllers import *

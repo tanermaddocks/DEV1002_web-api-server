@@ -15,16 +15,16 @@ class Booking(db.Model):
 
     # Relationships
     guest = db.relationship("Guest", back_populates="bookings")
-    bookings_tables = db.relationship("BookingTable", back_populates="booking", cascade="all, delete")
+    allocations = db.relationship("Allocation", back_populates="booking", cascade="all, delete")
 
 # Schema
 class BookingSchema(ma.Schema):
     # Modifiers
     guest = fields.Nested("GuestSchema", only=["name"])
-    bookings_tables = fields.List(fields.Nested("BookingTableSchema", only=["booking_id"]))
+    allocations = fields.List(fields.Nested("AllcationSchema", only=["booking_id"]))
     # Fields
     class Meta:
-        fields = ("id", "guest_id", "num_guests", "guest" ,"bookings_tables")
+        fields = ("id", "guest_id", "num_guests", "guest" ,"allocations")
 
 # Schema variables 
 booking_schema = BookingSchema()
