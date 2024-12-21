@@ -21,7 +21,7 @@ class Booking(db.Model):
 class BookingSchema(ma.Schema):
     # Modifiers
     guest = fields.Nested("GuestSchema", only=["name"])
-    allocations = fields.List(fields.Nested("AllcationSchema", only=["booking_id"]))
+    allocations = fields.List(fields.Nested("AllocationSchema", only=["booking_id"]))
     # Fields
     class Meta:
         fields = ("id", "guest_id", "num_guests", "guest" ,"allocations")
