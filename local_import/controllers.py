@@ -1,6 +1,6 @@
 # Reroute for imports to make main.py cleaner
 
-from controllers.booking_controller import *
+from controllers.booking_controller import booking_bp
 from controllers.booking_table_controller import *
 from controllers.cli_controller import db_commands
 from controllers.guest_controller import guest_bp
