@@ -10,7 +10,7 @@ class Table(db.Model):
     # Columns
     id = db.Column(db.Integer, primary_key=True)
     table_number = db.Column(db.Integer, nullable=False) #add in parameter for table#/venueid
-    max_guests = db.Column(db.String, nullable=False)
+    max_guests = db.Column(db.Integer, nullable=False)
     venue_id = db.Column(db.Integer, db.ForeignKey("venues.id"), nullable=False)
 
     # Relationships
