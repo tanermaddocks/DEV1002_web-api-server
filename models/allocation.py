@@ -9,8 +9,8 @@ class Allocation(db.Model):
     
     # Columns
     allocation_id = db.Column(db.Integer, primary_key=True)
-    booking_id = db.Column(db.Integer, db.ForeignKey("bookings.id"), nullable=False)
-    table_id = db.Column(db.Integer, db.ForeignKey("tables.id"), nullable=False)
+    booking_id = db.Column(db.Integer, db.ForeignKey("bookings.booking_id"), nullable=False)
+    table_id = db.Column(db.Integer, db.ForeignKey("tables.table_id"), nullable=False)
 
     # Relationships
     booking = db.relationship("Booking", back_populates="allocations")
