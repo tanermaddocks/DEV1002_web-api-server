@@ -8,7 +8,7 @@ class Allocation(db.Model):
     __tablename__ = "allocations"
     
     # Columns
-    id = db.Column(db.Integer, primary_key=True)
+    allocation_id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, db.ForeignKey("bookings.id"), nullable=False)
     table_id = db.Column(db.Integer, db.ForeignKey("tables.id"), nullable=False)
 
@@ -23,7 +23,7 @@ class AllocationSchema(ma.Schema):
     table = fields.Nested("TableSchema", exclude=["allocations"])
     # Fields
     class Meta:
-        fields = ("id", "booking_id", "table_id", "booking", "table")
+        fields = ("allocation_id", "booking_id", "table_id", "booking", "table")
 
 # Schema variables
 allocation_schema = AllocationSchema()

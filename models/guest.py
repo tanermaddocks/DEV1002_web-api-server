@@ -8,7 +8,7 @@ class Guest(db.Model):
     __tablename__ = "guests"
     
     # Columns
-    id = db.Column(db.Integer, primary_key=True)
+    guest_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String, unique=True)
@@ -22,7 +22,7 @@ class GuestSchema(ma.Schema):
     bookings = fields.Nested("BookingSchema", exclude=["guest"])
     # Fields
     class Meta:
-        fields = ("id", "name", "phone", "email", "bookings")
+        fields = ("guest_id", "name", "phone", "email", "bookings")
 
 # Schema variables
 guest_schema = GuestSchema()

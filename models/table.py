@@ -8,8 +8,8 @@ class Table(db.Model):
     __tablename__ = "tables"
     
     # Columns
-    id = db.Column(db.Integer, primary_key=True)
-    table_number = db.Column(db.Integer, nullable=False) #add in parameter for table#/venueid
+    table_id = db.Column(db.Integer, primary_key=True)
+    table_number = db.Column(db.String, nullable=False) #add in parameter for table#/venueid
     max_guests = db.Column(db.Integer, nullable=False)
     venue_id = db.Column(db.Integer, db.ForeignKey("venues.id"), nullable=False)
 
@@ -24,7 +24,7 @@ class TableSchema(ma.Schema):
     allocations = fields.List(fields.Nested("AllocationSchema", only=["booking_id"]))
     # Fields
     class Meta:
-        fields = ("id", "table_number", "max_guests", "venue_id", "venue" ,"allocations")
+        fields = ("table_id", "table_number", "max_guests", "venue_id", "venue" ,"allocations")
 
 # Schema variables
 table_schema = TableSchema()

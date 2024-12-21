@@ -8,7 +8,7 @@ class Booking(db.Model):
     __tablename__ = "bookings"
     
     # Columns
-    id = db.Column(db.Integer, primary_key=True)
+    booking_id = db.Column(db.Integer, primary_key=True)
     num_guests = db.Column(db.Integer, nullable=False)
     guest_id = db.Column(db.Integer, db.ForeignKey("guests.id"), nullable=False)
     time = db.Column(db.Date, nullable=False)
@@ -21,10 +21,10 @@ class Booking(db.Model):
 class BookingSchema(ma.Schema):
     # Modifiers
     guest = fields.Nested("GuestSchema", only=["name"])
-    allocations = fields.List(fields.Nested("AllocationSchema", only=["booking_id"]))
+    allocations = fields.List(fields.Nested("AllocationSchema", only=["table_id"]))
     # Fields
     class Meta:
-        fields = ("id", "guest_id", "num_guests", "guest" ,"allocations")
+        fields = ("booking_id", "guest_id", "num_guests", "guest" ,"allocations")
 
 # Schema variables 
 booking_schema = BookingSchema()
