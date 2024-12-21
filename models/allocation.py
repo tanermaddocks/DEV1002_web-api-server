@@ -14,7 +14,7 @@ class Allocation(db.Model):
 
     # Relationships
     booking = db.relationship("Booking", back_populates="allocations")
-    table = db.relationship("Table", back_populates="ballocations")
+    table = db.relationship("Table", back_populates="allocations")
 
 # Schema
 class AllocationSchema(ma.Schema):

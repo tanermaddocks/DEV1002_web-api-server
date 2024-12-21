@@ -86,21 +86,21 @@ def seed_tables():
 
     db.session.commit()
 
-    bookings_tables = [
-        BookingTable(
+    allocations = [
+        Allocation(
             booking_id=1,
             table_id=2
         ),
-        BookingTable(
+        Allocation(
             booking_id=2,
             table_id=3
         ),
-        BookingTable(
+        Allocation(
             booking_id=2,
             table_id=4
         )
     ]
-    db.session.add_all(bookings_tables)
+    db.session.add_all(allocations)
 
     db.session.commit()
 
