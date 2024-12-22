@@ -18,7 +18,7 @@ def create_booking():
         new_booking = Booking(
             num_guests = body_data.get("num_guests"),
             guest_id = body_data.get("guest_id"),
-            time = body_data.get("time")
+            booking_date = body_data.get("booking_date")
         )
         # add to session
         db.session.add(new_booking)
@@ -66,7 +66,7 @@ def update_booking(booking_id):
         # assign new values or use old ones
         booking.num_guests = body_data.get("num_guests") or booking.num_guests
         booking.guest_id = body_data.get("guest_id") or booking.guest_id
-        booking.time = body_data.get("time") or booking.time
+        booking.booking_date = body_data.get("booking_date") or booking.booking_date
         # commit changes
         db.session.commit()
         # return new object
