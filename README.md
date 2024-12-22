@@ -38,7 +38,17 @@ However, you can make it more complex if you want by making the relationship bet
 ## Planning
 
 ### Initial ERD
+- Lacked join table that enabled a booking to reserve multiple tables.
+- Changed bookings_tables to allocations for conciseness.
+- Changed 'time' to 'booking_date' for clarification.
+
 ![Initial ERD](images/TRS_ERD_first.drawio.png)
+
 
 ### Final ERD
 ![Final ERD](images/TRS_ERD_final.drawio.png)
+
+
+## Future Development
+There were some features that I would like to add that were beyond my understanding. The most prevalent one was I want the database to reject booking on the same tables at the same time. At the moment the database only registers date, so that would be the first step, but I was unable to work out how to add that constraint without denormalising the database.  
+The same was also true of adding a constraint to allocations and venues where an booking that has more than one allocation would be unable to have tables at two different venues.
