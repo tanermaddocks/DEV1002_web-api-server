@@ -16,7 +16,7 @@ Tested on Linux systems, other systems may be incompatible.
     2. Enter the following commands to create the database and it's user, change the names or password as you see fit.
         ```sql
         CREATE DATABASE booking_app_db;
-        CREATE ROLE booking_app_user WITH PASSWORD 'user_password_123';
+        CREATE USER booking_app_user WITH PASSWORD 'user_password_123';
         GRANT ALL PRIVILEGES ON DATABASE booking_app_db TO booking_app_user;
         ```
 2. Input the DATABASE_URI into .env using the following format:
