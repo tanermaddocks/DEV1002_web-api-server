@@ -80,8 +80,10 @@ def update_guest(guest_id):
             # return error message
             return {"message": f"Guest with id {guest_id} does not exist"}, 404
     except IntegrityError as err:
-        # return error message
-        return {"message": f"Guest {err.orig.diag.column_name} already in use"}, 409
+        # check for error unique
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            # return error message
+            return {"message": f"Guest {err.orig.diag.column_name} already in use"}, 409
 
 # Delete - /guests/id - DELETE
 @guest_bp.route("/<int:guest_id>/", methods=["DELETE"])
