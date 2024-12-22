@@ -22,7 +22,7 @@ class GuestSchema(ma.Schema):
     # Validations
     name = fields.String(validate=And(
         Length(min=2, error="Name must be at least 2 characters long"),
-        Regexp('^[A-Za-z][A-Za-z0-9 ]*$',
+        Regexp("^[A-Za-z][A-Za-z0-9 ]*$",
                error="Only letters, numbers and spaces are allowed")
                ))
     phone = fields.String(
@@ -30,11 +30,11 @@ class GuestSchema(ma.Schema):
                         error="Input a valid Australian phone number"
                         ))
     email = fields.String(
-        validate=Regexp("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+        validate=Regexp("^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$",
                         error="Input a valid email address"
                         ))
     # Modifiers
-    bookings = fields.Nested("BookingSchema", exclude=["guest"])
+    bookings = fields.List(fields.Nested("BookingSchema", exclude=["guest"]))
     # Fields
     class Meta:
         fields = ("guest_id", "name", "phone", "email", "bookings")

@@ -29,7 +29,7 @@ class VenueSchema(ma.Schema):
                         error="Input a valid Australian phone number"
                         ))
     # Modifiers
-    tables = fields.Nested("TablesSchema", exclude=["venue"])
+    tables = fields.List(fields.Nested("TableSchema", only=["table_number"]))
     # Fields
     class Meta:
         fields = ("venue_id", "name", "phone", "tables")

@@ -11,6 +11,8 @@ def create_app():
 
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 
+    app.json.sort_keys = False
+
     db.init_app(app)
     ma.init_app(app)
 

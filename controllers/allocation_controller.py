@@ -30,6 +30,8 @@ def create_allocation():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # return error message
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            return {"message": err.orig.diag.message_detail}, 409
 
 # Read all - /allocations - GET
 @allocation_bp.route("/")

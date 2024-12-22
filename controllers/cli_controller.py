@@ -50,12 +50,12 @@ def seed_tables():
         Booking(
             guest_id=1,
             num_guests=2,
-            time="2024-08-27"
+            booking_date="2024-08-27"
         ),
         Booking(
             guest_id=2,
             num_guests=4,
-            time="2024-08-27"
+            booking_date="2024-08-27"
         )
     ]
     db.session.add_all(bookings)

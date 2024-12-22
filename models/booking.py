@@ -40,7 +40,7 @@ class BookingSchema(ma.Schema):
 
     # Fields
     class Meta:
-        fields = ("booking_id", "guest_id", "num_guests", "guest" ,"allocations")
+        fields = ("booking_id", "guest_id", "booking_date", "num_guests", "guest" ,"allocations")
 
 # Schema variables 
 booking_schema = BookingSchema()
