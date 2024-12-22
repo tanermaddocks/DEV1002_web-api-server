@@ -40,10 +40,10 @@ def get_tables():
 
 
 # Read one - /tables/id - GET
-@table_bp.route("/<int:table_id>")
+@table_bp.route("/<int:table_id>/")
 def get_table(table_id):
     # load object data from id
-    table = db.session.scalar(db.select(Table).filter_by(id=table_id))
+    table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
     # check table exists
     if table:
         # return requested object data
@@ -53,10 +53,10 @@ def get_table(table_id):
         return {"message": f"Table with id {table_id} does not exist"}, 404
 
 # Update - /tables/id - PUT, PATCH
-@table_bp.route("/<int:table_id>", methods=["PUT", "PATCH"])
+@table_bp.route("/<int:table_id>/", methods=["PUT", "PATCH"])
 def update_table(table_id):
     # load object data from id
-    table = db.session.scalar(db.select(Table).filter_by(id=table_id))
+    table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
     # load input data
     body_data = request.get_json()
     # body_data = table_schema.load(request.get_json(), partial=True)
@@ -75,10 +75,10 @@ def update_table(table_id):
         return {"message": f"Table with id {table_id} does not exist"}, 404
 
 # Delete - /tables/id - DELETE
-@table_bp.route("/<int:table_id>", methods=["DELETE"])
+@table_bp.route("/<int:table_id>/", methods=["DELETE"])
 def delete_table(table_id):
     # load object data from id
-    table = db.session.scalar(db.select(Table).filter_by(id=table_id))
+    table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
     # check table exists
     if table:
         # delete the object

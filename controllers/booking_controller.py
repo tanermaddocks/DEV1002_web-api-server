@@ -41,10 +41,10 @@ def get_bookings():
 
 
 # Read one - /bookings/id - GET
-@booking_bp.route("/<int:booking_id>")
+@booking_bp.route("/<int:booking_id>/")
 def get_booking(booking_id):
     # load object data from id
-    booking = db.session.scalar(db.select(Booking).filter_by(id=booking_id))
+    booking = db.session.scalar(db.select(Booking).filter_by(booking_id=booking_id))
     # check booking exists
     if booking:
         # return requested object data
@@ -54,10 +54,10 @@ def get_booking(booking_id):
         return {"message": f"Booking with id {booking_id} does not exist"}, 404
 
 # Update - /bookings/id - PUT, PATCH
-@booking_bp.route("/<int:booking_id>", methods=["PUT", "PATCH"])
+@booking_bp.route("/<int:booking_id>/", methods=["PUT", "PATCH"])
 def update_booking(booking_id):
     # load object data from id
-    booking = db.session.scalar(db.select(Booking).filter_by(id=booking_id))
+    booking = db.session.scalar(db.select(Booking).filter_by(booking_id=booking_id))
     # load input data
     body_data = request.get_json()
     # body_data = booking_schema.load(request.get_json(), partial=True)
@@ -77,10 +77,10 @@ def update_booking(booking_id):
         return {"message": f"Booking with id {booking_id} does not exist"}, 404
 
 # Delete - /bookings/id - DELETE
-@booking_bp.route("/<int:booking_id>", methods=["DELETE"])
+@booking_bp.route("/<int:booking_id>/", methods=["DELETE"])
 def delete_booking(booking_id):
     # load object data from id
-    booking = db.session.scalar(db.select(Booking).filter_by(id=booking_id))
+    booking = db.session.scalar(db.select(Booking).filter_by(booking_id=booking_id))
     # check booking exists
     if booking:
         # delete the object

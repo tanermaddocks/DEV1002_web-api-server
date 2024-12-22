@@ -41,10 +41,10 @@ def get_allocations():
 
 
 # Read one - /allocations/id - GET
-@allocation_bp.route("/<int:allocation_id>")
+@allocation_bp.route("/<int:allocation_id>/")
 def get_allocation(allocation_id):
     # load object data from id
-    allocation = db.session.scalar(db.select(Allocation).filter_by(id=allocation_id))
+    allocation = db.session.scalar(db.select(Allocation).filter_by(allocation_id=allocation_id))
     # check allocation exists
     if allocation:
         # return requested object data
@@ -54,10 +54,10 @@ def get_allocation(allocation_id):
         return {"message": f"Allocation with id {allocation_id} does not exist"}, 404
 
 # Update - /allocations/id - PUT, PATCH
-@allocation_bp.route("/<int:allocation_id>", methods=["PUT", "PATCH"])
+@allocation_bp.route("/<int:allocation_id>/", methods=["PUT", "PATCH"])
 def update_allocation(allocation_id):
     # load object data from id
-    allocation = db.session.scalar(db.select(Allocation).filter_by(id=allocation_id))
+    allocation = db.session.scalar(db.select(Allocation).filter_by(allocation_id=allocation_id))
     # load input data
     body_data = request.get_json()
     # body_data = allocation_schema.load(request.get_json(), partial=True)
@@ -76,10 +76,10 @@ def update_allocation(allocation_id):
         return {"message": f"Allocation with id {allocation_id} does not exist"}, 404
 
 # Delete - /allocations/id - DELETE
-@allocation_bp.route("/<int:allocation_id>", methods=["DELETE"])
+@allocation_bp.route("/<int:allocation_id>/", methods=["DELETE"])
 def delete_allocation(allocation_id):
     # load object data from id
-    allocation = db.session.scalar(db.select(Allocation).filter_by(id=allocation_id))
+    allocation = db.session.scalar(db.select(Allocation).filter_by(allocation_id=allocation_id))
     # check allocation exists
     if allocation:
         # delete the object

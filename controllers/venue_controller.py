@@ -43,10 +43,10 @@ def get_venues():
 
 
 # Read one - /venues/id - GET
-@venue_bp.route("/<int:venue_id>")
+@venue_bp.route("/<int:venue_id>/")
 def get_venue(venue_id):
     # load object data from id
-    venue = db.session.scalar(db.select(Venue).filter_by(id=venue_id))
+    venue = db.session.scalar(db.select(Venue).filter_by(venue_id=venue_id))
     # check venue exists
     if venue:
         # return requested object data
@@ -56,12 +56,12 @@ def get_venue(venue_id):
         return {"message": f"Venue with id {venue_id} does not exist"}, 404
 
 # Update - /venues/id - PUT, PATCH
-@venue_bp.route("/<int:venue_id>", methods=["PUT", "PATCH"])
+@venue_bp.route("/<int:venue_id>/", methods=["PUT", "PATCH"])
 def update_venue(venue_id):
     # integrity error try/except for unique violations
     try:
         # load object data from id
-        venue = db.session.scalar(db.select(Venue).filter_by(id=venue_id))
+        venue = db.session.scalar(db.select(Venue).filter_by(venue_id=venue_id))
         # load input data
         body_data = request.get_json()
         # body_data = venue_schema.load(request.get_json(), partial=True)
@@ -83,10 +83,10 @@ def update_venue(venue_id):
         return {"message": "Venue phone number already in use"}, 409
 
 # Delete - /venues/id - DELETE
-@venue_bp.route("/<int:venue_id>", methods=["DELETE"])
+@venue_bp.route("/<int:venue_id>/", methods=["DELETE"])
 def delete_venue(venue_id):
     # load object data from id
-    venue = db.session.scalar(db.select(Venue).filter_by(id=venue_id))
+    venue = db.session.scalar(db.select(Venue).filter_by(venue_id=venue_id))
     # check venue exists
     if venue:
         # delete the object

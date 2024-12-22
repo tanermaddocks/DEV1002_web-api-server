@@ -44,10 +44,10 @@ def get_guests():
 
 
 # Read one - /guests/id - GET
-@guest_bp.route("/<int:guest_id>")
+@guest_bp.route("/<int:guest_id>/")
 def get_guest(guest_id):
     # load object data from id
-    guest = db.session.scalar(db.select(Guest).filter_by(id=guest_id))
+    guest = db.session.scalar(db.select(Guest).filter_by(guest_id=guest_id))
     # check guest exists
     if guest:
         # return requested object data
@@ -57,12 +57,12 @@ def get_guest(guest_id):
         return {"message": f"Guest with id {guest_id} does not exist"}, 404
 
 # Update - /guests/id - PUT, PATCH
-@guest_bp.route("/<int:guest_id>", methods=["PUT", "PATCH"])
+@guest_bp.route("/<int:guest_id>/", methods=["PUT", "PATCH"])
 def update_guest(guest_id):
     # integrity error try/except for unique violations
     try:
         # load object data from id
-        guest = db.session.scalar(db.select(Guest).filter_by(id=guest_id))
+        guest = db.session.scalar(db.select(Guest).filter_by(guest_id=guest_id))
         # load input data
         body_data = request.get_json()
         # body_data = guest_schema.load(request.get_json(), partial=True)
@@ -85,10 +85,10 @@ def update_guest(guest_id):
         return {"message": f"Guest {err.orig.diag.column_name} already in use"}, 409
 
 # Delete - /guests/id - DELETE
-@guest_bp.route("/<int:guest_id>", methods=["DELETE"])
+@guest_bp.route("/<int:guest_id>/", methods=["DELETE"])
 def delete_guest(guest_id):
     # load object data from id
-    guest = db.session.scalar(db.select(Guest).filter_by(id=guest_id))
+    guest = db.session.scalar(db.select(Guest).filter_by(guest_id=guest_id))
     # check guest exists
     if guest:
         # delete the object
