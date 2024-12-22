@@ -6,6 +6,11 @@ from local_import.init import db, ma
 class Allocation(db.Model):
     # Table name
     __tablename__ = "allocations"
+
+    # Table arguments
+    __table_args__ = (
+        db.UniqueConstraint("booking_id", "table_id", name="unique_booking_table")
+    )
     
     # Columns
     allocation_id = db.Column(db.Integer, primary_key=True)
