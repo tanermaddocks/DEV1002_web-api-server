@@ -1,4 +1,5 @@
 from marshmallow import fields
+from marshmallow.validate import Regexp, And, Length
 
 from local_import.init import db, ma
 
@@ -18,6 +19,20 @@ class Guest(db.Model):
 
 # Schema
 class GuestSchema(ma.Schema):
+    # Validations
+    name = fields.String(validate=And(
+        Length(min=2, error="Name must be at least 2 characters long"),
+        Regexp('^[A-Za-z][A-Za-z0-9 ]*$',
+               error="Only letters, numbers and spaces are allowed")
+               ))
+    phone = fields.String(
+        validate=Regexp("(?:\+?61)?(?:\(0\)[23478]|\(?0?[23478]\)?)\d{8}",
+                        error="Input a valid Australian phone number"
+                        ))
+    email = fields.String(
+        validate=Regexp("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$",
+                        error="Input a valid email address"
+                        ))
     # Modifiers
     bookings = fields.Nested("BookingSchema", exclude=["guest"])
     # Fields
