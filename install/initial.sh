@@ -5,8 +5,8 @@ source .venv/bin/activate
 echo "Virtual environemt installed and activated"
 # Install dependencies
 python3 -m pip install --upgrade pip
-pip3 install -r requirements.txt
-pip3 freeze > requirements.txt
+pip3 install -r install/requirements.txt
+pip3 freeze > install/requirements.txt
 echo "Dependencies installed"
 # Create .env file
 rm .env
