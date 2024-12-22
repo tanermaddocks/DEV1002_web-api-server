@@ -33,3 +33,12 @@ However, you can make it more complex if you want by making the relationship bet
 "You can make installation more simple for the user if you make bash file with all of the necessary commands for the initial install." - Bolt
 
     Action: Created the install.sh and other bash files to simplify installation for the user.
+
+
+## Planning
+
+### Initial ERD
+![Initial ERD](images/TRS_ERD_first.drawio.png)
+
+### Final ERD
+![Final ERD](images/TRS_ERD_final.drawio.png)
