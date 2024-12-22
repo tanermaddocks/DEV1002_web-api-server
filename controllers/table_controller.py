@@ -17,7 +17,8 @@ def create_table():
         # create instance
         new_table = Table(
             max_guests = body_data.get("max_guests"),
-            venue_id = body_data.get("venue_id")
+            venue_id = body_data.get("venue_id"),
+            table_number = body_data.get("table_number")
         )
         # add to session
         db.session.add(new_table)
@@ -69,6 +70,7 @@ def update_table(table_id):
             # assign new values or use old ones
             table.max_guests = body_data.get("max_guests") or table.max_guests
             table.venue_id = body_data.get("venue_id") or table.venue_id
+            table.table_number = body_data.get("table_number") or table.table_number
             # commit changes
             db.session.commit()
             # return new object
@@ -81,7 +83,8 @@ def update_table(table_id):
         # check for error unique
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             # return error message
-            return {"message": f"Table number already used in that venue"}, 409
+            return {"message": f"Table number {table.table_number} already"
+                    "used in venue with id {table.venue_id}"}, 409
 
 # Delete - /tables/id - DELETE
 @table_bp.route("/<int:table_id>/", methods=["DELETE"])
