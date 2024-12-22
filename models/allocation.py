@@ -9,7 +9,7 @@ class Allocation(db.Model):
 
     # Table arguments
     __table_args__ = (
-        db.UniqueConstraint("booking_id", "table_id", name="unique_booking_table")
+        db.UniqueConstraint("booking_id", "table_id", name="unique_booking_table"),
     )
     
     # Columns

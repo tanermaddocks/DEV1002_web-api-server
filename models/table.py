@@ -10,7 +10,7 @@ class Table(db.Model):
 
     # Table arguments
     __table_args__ = (
-        db.UniqueConstraint("venue_id", "table_number", name="unique_venue_table_number")
+        db.UniqueConstraint("venue_id", "table_number", name="unique_venue_table_number"),
     )
     
     # Columns
