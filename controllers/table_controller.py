@@ -30,6 +30,10 @@ def create_table():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # return error message
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
+        # check for error unique
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            # return error message
+            return {"message": f"Table number already used in that venue"}, 409
 
 
 # Read all - /tables - GET
@@ -55,23 +59,29 @@ def get_table(table_id):
 # Update - /tables/id - PUT, PATCH
 @table_bp.route("/<int:table_id>/", methods=["PUT", "PATCH"])
 def update_table(table_id):
-    # load object data from id
-    table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
-    # load input data
-    body_data = table_schema.load(request.get_json(), partial=True)
-    # check table exists
-    if table:
-        # assign new values or use old ones
-        table.max_guests = body_data.get("max_guests") or table.max_guests
-        table.venue_id = body_data.get("venue_id") or table.venue_id
-        # commit changes
-        db.session.commit()
-        # return new object
-        return table_schema.dump(table)
-    # if no table
-    else:
-        # return error message
-        return {"message": f"Table with id {table_id} does not exist"}, 404
+    try:
+        # load object data from id
+        table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
+        # load input data
+        body_data = table_schema.load(request.get_json(), partial=True)
+        # check table exists
+        if table:
+            # assign new values or use old ones
+            table.max_guests = body_data.get("max_guests") or table.max_guests
+            table.venue_id = body_data.get("venue_id") or table.venue_id
+            # commit changes
+            db.session.commit()
+            # return new object
+            return table_schema.dump(table)
+        # if no table
+        else:
+            # return error message
+            return {"message": f"Table with id {table_id} does not exist"}, 404
+    except IntegrityError as err:
+        # check for error unique
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            # return error message
+            return {"message": f"Table number already used in that venue"}, 409
 
 # Delete - /tables/id - DELETE
 @table_bp.route("/<int:table_id>/", methods=["DELETE"])
