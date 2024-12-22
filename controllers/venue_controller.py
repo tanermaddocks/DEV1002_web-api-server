@@ -13,7 +13,7 @@ def create_venue():
     # integrity error try/except for unique and not_null violations
     try:
         # get data from body
-        body_data = request.get_json()
+        body_data = venue_schema.load(request.get_json(), partial=True)
         # create instance
         new_venue = Venue(
             name = body_data.get("name"),
@@ -63,8 +63,7 @@ def update_venue(venue_id):
         # load object data from id
         venue = db.session.scalar(db.select(Venue).filter_by(venue_id=venue_id))
         # load input data
-        body_data = request.get_json()
-        # body_data = venue_schema.load(request.get_json(), partial=True)
+        body_data = venue_schema.load(request.get_json(), partial=True)
         # check venue exists
         if venue:
             # assign new values or use old ones

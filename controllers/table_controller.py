@@ -13,7 +13,7 @@ def create_table():
     # integrity error try/except for unique and not_null violations
     try:
         # get data from body
-        body_data = request.get_json()
+        body_data = table_schema.load(request.get_json(), partial=True)
         # create instance
         new_table = Table(
             max_guests = body_data.get("max_guests"),
@@ -58,8 +58,7 @@ def update_table(table_id):
     # load object data from id
     table = db.session.scalar(db.select(Table).filter_by(table_id=table_id))
     # load input data
-    body_data = request.get_json()
-    # body_data = table_schema.load(request.get_json(), partial=True)
+    body_data = table_schema.load(request.get_json(), partial=True)
     # check table exists
     if table:
         # assign new values or use old ones

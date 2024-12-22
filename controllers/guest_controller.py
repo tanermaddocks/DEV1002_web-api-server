@@ -13,7 +13,7 @@ def create_guest():
     # integrity error try/except for unique and not_null violations
     try:
         # get data from body
-        body_data = request.get_json()
+        body_data = guest_schema.load(request.get_json(), partial=True)
         # create instance
         new_guest = Guest(
             name = body_data.get("name"),
@@ -64,8 +64,7 @@ def update_guest(guest_id):
         # load object data from id
         guest = db.session.scalar(db.select(Guest).filter_by(guest_id=guest_id))
         # load input data
-        body_data = request.get_json()
-        # body_data = guest_schema.load(request.get_json(), partial=True)
+        body_data = guest_schema.load(request.get_json(), partial=True)
         # check guest exists
         if guest:
             # assign new values or use old ones

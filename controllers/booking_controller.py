@@ -13,7 +13,7 @@ def create_booking():
     # integrity error try/except for not_null violations
     try:
         # get data from body
-        body_data = request.get_json()
+        body_data = booking_schema.load(request.get_json(), partial=True)
         # create instance
         new_booking = Booking(
             num_guests = body_data.get("num_guests"),
@@ -59,8 +59,7 @@ def update_booking(booking_id):
     # load object data from id
     booking = db.session.scalar(db.select(Booking).filter_by(booking_id=booking_id))
     # load input data
-    body_data = request.get_json()
-    # body_data = booking_schema.load(request.get_json(), partial=True)
+    body_data = booking_schema.load(request.get_json(), partial=True)
     # check booking exists
     if booking:
         # assign new values or use old ones

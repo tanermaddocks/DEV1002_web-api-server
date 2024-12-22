@@ -13,7 +13,7 @@ def create_allocation():
     # integrity error try/except for not_null violations
     try:
         # get data from body
-        body_data = request.get_json()
+        body_data = allocation_schema.load(request.get_json(), partial=True)
         # create instances
         new_allocation = Allocation(
             booking_id = body_data.get("booking_id"),
@@ -30,6 +30,7 @@ def create_allocation():
         if err.orig.pgcode == errorcodes.NOT_NULL_VIOLATION:
             # return error message
             return {"message": f"The field '{err.orig.diag.column_name}' is required"}, 409
+        # check for error unique
         if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
             return {"message": err.orig.diag.message_detail}, 409
 
@@ -56,24 +57,28 @@ def get_allocation(allocation_id):
 # Update - /allocations/id - PUT, PATCH
 @allocation_bp.route("/<int:allocation_id>/", methods=["PUT", "PATCH"])
 def update_allocation(allocation_id):
-    # load object data from id
-    allocation = db.session.scalar(db.select(Allocation).filter_by(allocation_id=allocation_id))
-    # load input data
-    body_data = request.get_json()
-    # body_data = allocation_schema.load(request.get_json(), partial=True)
-    # check allocation exists
-    if allocation:
-        # assign new values or use old ones
-        allocation.booking_id = body_data.get("booking_id") or allocation.name
-        allocation.table_id = body_data.get("table_id") or allocation.phone
-        # commit changes
-        db.session.commit()
-        # return new object
-        return allocation_schema.dump(allocation)
-    # if no allocation
-    else:
-        # return error message
-        return {"message": f"Allocation with id {allocation_id} does not exist"}, 404
+    try:
+        # load object data from id
+        allocation = db.session.scalar(db.select(Allocation).filter_by(allocation_id=allocation_id))
+        # load input data
+        body_data = allocation_schema.load(request.get_json(), partial=True)
+        # check allocation exists
+        if allocation:
+            # assign new values or use old ones
+            allocation.booking_id = body_data.get("booking_id") or allocation.name
+            allocation.table_id = body_data.get("table_id") or allocation.phone
+            # commit changes
+            db.session.commit()
+            # return new object
+            return allocation_schema.dump(allocation)
+        # if no allocation
+        else:
+            # return error message
+            return {"message": f"Allocation with id {allocation_id} does not exist"}, 404
+    except IntegrityError as err:
+        # check for error unique
+        if err.orig.pgcode == errorcodes.UNIQUE_VIOLATION:
+            return {"message": err.orig.diag.message_detail}, 409
 
 # Delete - /allocations/id - DELETE
 @allocation_bp.route("/<int:allocation_id>/", methods=["DELETE"])
