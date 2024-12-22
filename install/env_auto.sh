@@ -1,0 +1,1 @@
+echo 'DATABASE_URI="postgresql+psycopg2://booking_app_user:user_password_123@localhost:5432/booking_app_db"' > .env

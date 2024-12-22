@@ -10,11 +10,21 @@ Tested on Linux systems, other systems may be incompatible.
 ## Installation for Local Environments
 
 1. From the terminal run the command ```bash install/initial.sh```.
-2. Create a database using postgreSQL and input the DATABASE_URI using the following format:
+2. Create a database with the following steps:
+    1. Open postgreSQL using ```psql``` in a terminal.
+        - If you issues with authentication use ```sudo -u postgres psql``` in the terminal.
+    2. Enter the following commands to create the database and it's user, change the names or password as you see fit.
+        ```sql
+        CREATE DATABASE booking_app_db;
+        CREATE ROLE booking_app_user WITH PASSWORD 'user_password_123';
+        GRANT ALL PRIVILEGES ON DATABASE booking_app_db TO booking_app_user;
+        ```
+2. Input the DATABASE_URI into .env using the following format:
     - DATABASE_URI="postgresql+psycopg2://DATABASE_OWNER:PASSWORD@localhost:5432/DATABASE_NAME"
-    - Or, run the command ```bash install/create_database.sh``` to create a generic database and automatically input the DATABASE_URI.
-3. Create the relations for the database and seed with sample data by running the command ```bash install/tables.sh```
-4. Use a browser, Insomnia or a similar program to access the database information.
+    - If you didn't change the names or password of the user or database in step one, run ```install/env_auto.sh``` to set the .env file automatically.
+4. Close all open terminals.
+3. Create the relations for the database and seed with sample data by running the command ```bash install/tables.sh``` which can also be used to reset the tables at any point.
+4. Run ```flask run``` in terminal before using a browser, Insomnia or a similar program to access the database information on port 8081.
 
 ## Feedback for Web API
 
